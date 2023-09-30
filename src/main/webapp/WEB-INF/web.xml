@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <!--
+ Khai báo một filter có tên logFilter
+-->
+<!--    filter nào nằm ở đầu file web.xml thì sẽ được chạy trước-->
+    <filter>
+        <filter-name>AuthenticationFilter</filter-name>
+        <filter-class>com.example.studentmanagement.filter.AuthenticationFilter</filter-class>
+    </filter>
+    <!--
+     Khai báo các đường dẫn (của trang) sẽ chịu tác dụng của logFilter
+     /* có nghĩa là mọi đường dẫn.
+    -->
+    <filter-mapping>
+        <filter-name>AuthenticationFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+<!--       /*: Đại điện cho tất cả các request -->
+    </filter-mapping>
+
+    <filter>
+        <filter-name>AuthorizationFilter</filter-name>
+        <filter-class>com.example.studentmanagement.filter.AuthorizationFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>AuthorizationFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+        <url-pattern>/student</url-pattern>
+<!--       /admin/* <=>: /admin/teacher Đi vào AuthorizationFilter -->
+    </filter-mapping>
+</web-app>
